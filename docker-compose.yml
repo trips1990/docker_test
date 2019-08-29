@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+   db:
+     image: mydb:latest
+     restart: always
+   app:
+     depends_on:
+       - db
+     image: myapp:latest
+     restart: always
+     healthcheck:
+      test: ["CMD", "java", "-cp", "postgresql-42.2.5.jar:.","app"]
+      interval: 5s
+      retries: 20
